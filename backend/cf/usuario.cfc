@@ -4,7 +4,7 @@
 
 	<cffunction name="usuario" access="remote" returntype="String" httpmethod="GET"> 
         
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
 		
 		<cfset response = structNew()>
 		
@@ -40,7 +40,6 @@
 					,usu_login
 					,usu_cpf
 					,per_nome
-					,usu_ativo_label
 					,usu_ultimoAcesso
 				FROM
 					vw_usuario
@@ -85,7 +84,7 @@
 
 		<cfargument name="id" restargsource="Path" type="numeric"/>
 		
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
 
 
 		<cfset response = structNew()>
@@ -104,7 +103,6 @@
                     ,per_id
                     ,per_nome
                     ,usu_ativo
-                    ,usu_ativo_label
                     ,usu_mudarSenha
                     ,usu_ultimoAcesso
                 FROM
@@ -126,7 +124,7 @@
 	<cffunction name="usuarioCreate" access="remote" returnType="String" httpMethod="POST">		
 		<cfargument name="body" type="String">
 
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
 
 		<cfset body = DeserializeJSON(arguments.body)>
 		
@@ -185,7 +183,7 @@
 
 		<cfargument name="body" type="String">
 
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
 
 		<cfset body = DeserializeJSON(arguments.body)>
 		
@@ -231,7 +229,7 @@
 	<cffunction name="usuarioRemove" access="remote" returnType="String" httpMethod="DELETE">		
 		<cfargument name="body" type="String">
 
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
 
 		<cfset body = DeserializeJSON(arguments.body)>
 		
@@ -266,7 +264,7 @@
 		
 		<cfargument name="id" restargsource="Path" type="numeric"/>		
 
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
 
 		<cfset response = structNew()>
 		<cfset response["arguments"] = arguments>

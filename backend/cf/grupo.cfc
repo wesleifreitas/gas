@@ -103,7 +103,7 @@
 
 	<cffunction name="grupoAdmin" access="remote" returntype="String" httpmethod="GET" restPath="/admin"> 
 
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
         
 		<cfset response = structNew()>
 		
@@ -117,7 +117,7 @@
                 FROM
                    	grupo
                 WHERE
-					1 = 1
+					1 = 1	
 				<cfif IsDefined("url.grupo_id") AND url.grupo_id NEQ "">
 					AND	grupo_id = <cfqueryparam value = "#url.grupo_id#" CFSQLType = "CF_SQL_VARCHAR">
 				</cfif> 
@@ -170,7 +170,7 @@
 
 		<cfargument name="grupo_id" restargsource="Path" type="numeric"/>		
 		
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
 
 		<cfset response = structNew()>
 		<cfset response["arguments"] = arguments>
@@ -202,7 +202,7 @@
 	<cffunction name="grupoCreate" access="remote" returnType="String" httpMethod="POST">		
 		<cfargument name="body" type="String">
 
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
 
 		<cfset body = DeserializeJSON(arguments.body)>
 		
@@ -244,7 +244,7 @@
 
 		<cfargument name="body" type="String">
 
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
 
 		<cfset body = DeserializeJSON(arguments.body)>
 		
@@ -280,7 +280,7 @@
 	<cffunction name="grupoRemove" access="remote" returnType="String" httpMethod="DELETE">		
 		<cfargument name="body" type="String">
 
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
 
 		<cfset body = DeserializeJSON(arguments.body)>
 		
@@ -313,7 +313,7 @@
 		
 		<cfargument name="grupo_id" restargsource="Path" type="numeric"/>
 
-		<cfset checkAuthentication()>
+		<cfset checkAuthentication(state = ['perfil-usuario'])>
 
 		<cfset response = structNew()>
 		<cfset response["arguments"] = arguments>

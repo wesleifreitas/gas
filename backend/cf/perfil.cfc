@@ -33,7 +33,6 @@
                 SELECT
 					per_id
 					,per_nome
-					,per_ativo_label
 					,grupo_id
 					,per_master
 				FROM
@@ -86,7 +85,6 @@
 					per_id
 					,per_nome
 					,per_ativo
-					,per_ativo_label
 					,grupo_id
 					,per_master
 				FROM
@@ -536,16 +534,6 @@
 				<cfset url.perfilId = -1>
 			</cfif>
 
-			<cfquery datasource="#application.datasource#" name="qUsuario">
-				SELECT
-					per_id
-					,per_developer
-				FROM
-					dbo.vw_usuario
-				WHERE
-					usu_id = 1
-			</cfquery>
-
 			<cfquery datasource="#application.datasource#" name="qMenu">
 				SELECT
 					menu.men_ativo
@@ -593,7 +581,7 @@
 				FROM
 					dbo.menu AS menu
 
-				<cfif qUsuario.per_developer NEQ 1>
+				<cfif session.perfilDeveloper NEQ 1>
 					LEFT OUTER JOIN dbo.acesso AS acesso
 					ON menu.men_id = acesso.men_id
 				</cfif>
@@ -603,8 +591,8 @@
 				AND men_ativo   = <cfqueryparam cfsqltype="cf_sql_bit" value="1"/>
 				AND men_sistema = <cfqueryparam cfsqltype="cf_sql_bit" value="1"/>		 
 
-				<cfif qUsuario.per_developer NEQ 1>
-					AND acesso.per_id = <cfqueryparam cfsqltype="cf_sql_bigint" value="#qUsuario.per_id#">
+				<cfif session.perfilDeveloper NEQ 1>
+					AND acesso.per_id = <cfqueryparam cfsqltype="cf_sql_bigint" value="#session.perfilId#">
 				</cfif>
 
 				ORDER BY

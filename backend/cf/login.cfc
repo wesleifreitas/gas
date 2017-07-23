@@ -123,6 +123,7 @@
 
         <cfif StructKeyExists(session, "authenticated") AND session.authenticated>	
             <cfset response["authenticated"] = true>
+            <!--- <cfset response["session"] = session> --->
         <cfelse>    
             <cfset response["authenticated"] = false>
         </cfif>
