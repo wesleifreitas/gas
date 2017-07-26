@@ -25,9 +25,9 @@
 
         // $on
         // https://docs.angularjs.org/api/ng/type/$rootScope.Scope
-        $scope.$on('broadcastTest', function() {
-            console.info('broadcastTest!');
-            //getData();
+        $scope.$on('grupoSelected', function(event, args) {
+            //console.info('grupoSelected!', args);
+            getData({ reset: true });
         });
 
         function init() {

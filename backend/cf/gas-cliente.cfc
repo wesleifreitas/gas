@@ -22,7 +22,7 @@
 				ON gas_status.cli_id = cliente.cli_id
 
                 WHERE
-                    1 = 1
+                    grupo_id = #grupoId#
                 <cfif IsDefined("url.CLI_CPFCNPJ") AND url.CLI_CPFCNPJ NEQ "">
                     AND	cli_cpfCnpj = <cfqueryparam value = "#url.CLI_CPFCNPJ#" CFSQLType = "CF_SQL_VARCHAR">
                 </cfif>
@@ -54,7 +54,7 @@
 					,cli_uf
 					,cli_cep
 					,cli_data
-					,company
+					,grupo_id
 
 					,gas_id
 					,gas_status
@@ -68,7 +68,7 @@
 				ON gas_status.cli_id = cliente.cli_id
 				
                 WHERE
-                    1 = 1
+                     grupo_id = #grupoId#
                 <cfif IsDefined("url.CLI_CPFCNPJ") AND url.CLI_CPFCNPJ NEQ "">
                     AND	cli_cpfCnpj = <cfqueryparam value = "#url.CLI_CPFCNPJ#" CFSQLType = "CF_SQL_VARCHAR">
                 </cfif>

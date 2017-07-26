@@ -12,7 +12,7 @@
 
 		<cftry>
 
-			<cfif session.perfilDeveloper EQ 1>
+			<cfif session.perfilDeveloper EQ 1 OR session.perfilMaster>
 				<cfquery datasource="#application.datasource#" name="queryCount">
 					SELECT
 						COUNT(*) AS COUNT
@@ -92,6 +92,7 @@
 			<cfset response["limit"] = URL.limit>	
 			<cfset response["recordCount"] = queryCount.COUNT>
 			<cfset response["query"] = queryToArray(query)>
+			<cfset response["session"] = session>
 
 			<cfcatch>
 				<cfset responseError(400, cfcatch.message)>

@@ -25,16 +25,35 @@
         function init() {
             var filter = {};
             filter.page = 1;
-            filter.limit = 1;
+            filter.limit = 100;
 
             grupoService.get(filter, false)
                 .then(function success(response) {
                     if (response.query.length > 0) {
-                        $rootScope.globals.currentUser.grupoSelected = {
-                            id: response.query[0].GRUPO_ID,
-                            name: response.query[0].GRUPO_NOME
-                        };
-                        vm.searchText = response.query[0].GRUPO_NOME;
+                        var grupoSelected = JSON.parse(localStorage.getItem('grupoSelected')) || null;
+
+                        var i;
+                        if (grupoSelected) {
+                            for (i = 0; i <= response.query.length - 1; i++) {
+                                if (response.query[i].GRUPO_ID === grupoSelected.id) {
+                                    $rootScope.globals.currentUser.grupoSelected = grupoSelected;
+                                    vm.searchText = grupoSelected.name;
+                                    break;
+                                }
+                            }
+                        } else {
+                            for (i = 0; i <= response.query.length - 1; i++) {
+                                if (response.query[i].GRUPO_ID === $rootScope.globals.currentUser.session.grupoid) {
+                                    grupoSelected = {
+                                        id: response.query[i].GRUPO_ID,
+                                        name: response.query[i].GRUPO_NOME
+                                    };
+                                    $rootScope.globals.currentUser.grupoSelected = grupoSelected;
+                                    vm.searchText = grupoSelected.name;
+                                    break;
+                                }
+                            }
+                        }
                     } else {
                         console.warn('home init: usuário sem grupo!');
                     }
@@ -89,8 +108,6 @@
             filter.limit = 5;
             filter.GRUPO_NOME = text;
 
-            //console.info(filter);
-
             return grupoService.get(filter, false)
                 .then(function success(response) {
                     //console.info('success', response);
@@ -103,10 +120,15 @@
         function selectedItemChange(item) {
             //console.info('selectedItemChange', item);
             if (item) {
-                $rootScope.globals.currentUser.grupoSelected = {
+                var grupoSelected = {
                     id: item.GRUPO_ID,
                     name: item.GRUPO_NOME
                 };
+                $rootScope.globals.currentUser.grupoSelected = grupoSelected;
+                localStorage.setItem('grupoSelected', JSON.stringify(grupoSelected));
+                //$state.reload();
+                $rootScope.$broadcast('grupoSelected', { grupoSelected: grupoSelected });
+                $mdSidenav('right').close();
             }
         }
 

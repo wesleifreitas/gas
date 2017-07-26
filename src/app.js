@@ -23,19 +23,26 @@
 
     angular
         .module(PROJECT_NAME)
-        .factory('httpRequestInterceptor', function() {
+        .factory('httpRequestInterceptor', ['$rootScope', function($rootScope) {
             return {
                 request: function(config) {
                     if (String(config.url).indexOf('gas') > -1) {
                         config.headers['Authorization'] = '';
                         config.headers['Accept'] = 'application/json;odata=verbose';
+
+                        var grupoSelected = JSON.parse(localStorage.getItem('grupoSelected')) || null;
+
+                        if ($rootScope.globals.currentUser && grupoSelected) {
+                            config.headers['grupoId'] = grupoSelected.id;
+                        }
+
                     } else {
                         delete config.headers['Authorization'];
                     }
                     return config;
                 }
             };
-        });
+        }]);
 
     var localUrl = 'http://localhost:8500';
     if (window.location.hostname !== 'localhost' && window.location.hostname !== 'http://127.0.0.1') {

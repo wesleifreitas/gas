@@ -27,6 +27,7 @@
                     ,usu_nome
                     ,usu_senha 
                     ,usu_mudarSenha
+                    ,per_master
                     ,per_developer
                     ,usu_cpf
                     ,grupo_id
@@ -93,6 +94,7 @@
                         <cfset session.userId = qLogin.usu_id>
                         <cfset session.userName = qLogin.usu_nome>  
                         <cfset session.userCpf = qLogin.usu_cpf>                            
+                        <cfset session.perfilMaster = qLogin.per_master>    
                         <cfset session.perfilDeveloper = qLogin.per_developer>    
                         <cfset session.grupoId = qLogin.grupo_id>    
                         <cfset session.grupoList = qLogin.perfil_grupo>

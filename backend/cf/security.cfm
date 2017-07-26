@@ -8,6 +8,7 @@
     <cfset var authString = "" />
     <cfsetting showDebugOutput="false" />
 
+    <!--- verificar login --->
     <cfif IsDefined("authHeader") and authHeader NEQ "">
         <cfset authString = ToString(BinaryDecode(ListLast(authHeader, " "),"Base64")) />
 
@@ -29,5 +30,11 @@
     <cfelseif not IsDefined("session.authenticated") OR not session.authenticated>
         <cfset responseError(401)>     
     </cfif>
+
+    <!--- verificar grupo --->
+    <cfset grupoId = GetPageContext().getRequest().getHeader("grupoId")>
+    <cfif not IsDefined("grupoId") OR grupoId EQ "null">
+        <cfset grupoId = session.grupoId>
+    </cfif> 
 
 </cffunction>
