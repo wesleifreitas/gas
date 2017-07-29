@@ -26,8 +26,14 @@
                 <cfif IsDefined("url.CLI_CPFCNPJ") AND url.CLI_CPFCNPJ NEQ "">
                     AND	cli_cpfCnpj = <cfqueryparam value = "#url.CLI_CPFCNPJ#" CFSQLType = "CF_SQL_VARCHAR">
                 </cfif>
-                <cfif IsDefined("url.CLI_NOME") AND url.CLI_NOME NEQ "">
-                    AND	cli_nome COLLATE Latin1_general_CI_AI LIKE <cfqueryparam value = "%#url.CLI_NOME#%" CFSQLType = "CF_SQL_VARCHAR">
+				<cfif IsDefined("url.CLI_CPFCNPJ") AND url.CLI_CPFCNPJ NEQ "">
+                    AND	cli_cpfCnpj = <cfqueryparam value = "#url.CLI_CPFCNPJ#" CFSQLType = "CF_SQL_VARCHAR">
+                </cfif>
+				<cfif IsDefined("url.CLI_CEP") AND url.CLI_CEP NEQ "">
+                    AND	cli_cep = <cfqueryparam value = "#url.CLI_CEP#" CFSQLType = "CF_SQL_VARCHAR">
+                </cfif>
+				<cfif IsDefined("url.GAS_STATUS") AND IsNumeric(url.GAS_STATUS)>
+                    AND	gas_status = <cfqueryparam value = "#url.GAS_STATUS#" CFSQLType = "CF_SQL_INTEGER">
                 </cfif>
             </cfquery>
 
@@ -75,9 +81,16 @@
                 <cfif IsDefined("url.CLI_NOME") AND url.CLI_NOME NEQ "">
                     AND	cli_nome COLLATE Latin1_general_CI_AI LIKE <cfqueryparam value = "%#url.CLI_NOME#%" CFSQLType = "CF_SQL_VARCHAR">
                 </cfif>
+				<cfif IsDefined("url.CLI_CEP") AND url.CLI_CEP NEQ "">
+                    AND	cli_cep = <cfqueryparam value = "#url.CLI_CEP#" CFSQLType = "CF_SQL_VARCHAR">
+                </cfif>
+				<cfif IsDefined("url.GAS_STATUS") AND IsNumeric(url.GAS_STATUS)>
+                    AND	gas_status = <cfqueryparam value = "#url.GAS_STATUS#" CFSQLType = "CF_SQL_INTEGER">
+                </cfif>
 
                 ORDER BY
-                    cli_nome ASC
+                    gas_status
+					,cli_cep
                 
                 <!--- Paginação --->
                 OFFSET #URL.page * URL.limit - URL.limit# ROWS

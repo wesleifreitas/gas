@@ -1,0 +1,61 @@
+<md-dialog flex="50" flex-xs="100" aria-label="" ng-cloak ng-init="vm.init()">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Pesquisar</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.cancel()">
+                <i class="fa fa-close"></i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-content class="content">
+            <form name="form">
+                <div layout="row" layout-xs="column" layout-padding>
+                    <md-input-container class="md-block" flex="20" flex-xs="100">
+                        <label>Status</label>
+                        <md-select ng-model="vm.filter.GAS_STATUS">
+                            <md-option ng-value="todos">
+                                <em>Todos</em>
+                            </md-option>
+                            <md-option ng-repeat="status in vm.status" ng-value="status.id">
+                                {{status.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex flex-xs="100">
+                        <label>Nome</label>
+                        <input ng-model="vm.filter.CLI_NOME">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex="20" flex-xs="100">
+                        <label>CPF</label>
+                        <input name="CLI_CPFCNPJ" ng-model="vm.filter.CLI_CPFCNPJ" ui-br-cpf-mask>
+                        <div ng-messages="formSearch.CLI_CPFCNPJ.$error" multiple md-auto-hide="false">
+                            <div ng-message="cpf">CPF inválido.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex="20" flex-xs="100">
+                        <label>CEP</label>
+                        <input name="CLI_CEP" ng-model="vm.filter.CLI_CEP" ui-br-cpf-mask>
+                        <div ng-messages="formSearch.CLI_CEP.$error" multiple md-auto-hide="false">
+                            <div ng-message="cep">CEP inválido.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </form>
+        </md-content>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+        <md-button ng-click="vm.cancel()">
+            Cancelar
+        </md-button>
+        <md-button ng-click="vm.save()" ng-disabled="form.$invalid || vm.loading">
+            <md-icon>search</md-icon>
+            Pesquisar
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

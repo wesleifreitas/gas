@@ -9,25 +9,14 @@
         return function(value) {
             for (var i = 0; i <= GAS.STATUS.length - 1; i++) {
                 if (GAS.STATUS[i].id === value) {
-                    return GAS.STATUS[i].name;
+                    return GAS.STATUS[i];
                 }
             }
-            return '?';
-        };
-    }
-
-    angular.module('myApp').filter('gasStatusClass', gasStatusClass);
-
-    gasStatusClass.$inject = ['GAS'];
-    /* @ngInject */
-    function gasStatusClass(GAS) {
-        return function(value) {
-            for (var i = 0; i <= GAS.STATUS.length - 1; i++) {
-                if (GAS.STATUS[i].id === value) {
-                    return GAS.STATUS[i].class;
-                }
-            }
-            return 'fa-question';
+            return {
+                id: 0,
+                name: '',
+                class: 'fa-question'
+            };
         };
     }
 })();

@@ -3,16 +3,18 @@
 
     angular.module('myApp').controller('GasClienteCtrl', GasClienteCtrl);
 
-    GasClienteCtrl.$inject = ['config', 'gasClienteService', '$rootScope', '$scope', '$state', '$mdDialog'];
+    GasClienteCtrl.$inject = ['config', 'gasClienteService', '$rootScope', '$scope', '$state', '$mdDialog', 'GAS'];
 
-    function GasClienteCtrl(config, gasClienteService, $rootScope, $scope, $state, $mdDialog) {
+    function GasClienteCtrl(config, gasClienteService, $rootScope, $scope, $state, $mdDialog, GAS) {
 
         var vm = this;
         vm.init = init;
         vm.getData = getData;
+        vm.searchDialog = searchDialog;
         vm.create = create;
         vm.update = update;
         vm.remove = remove;
+        vm.status = GAS.STATUS;
         vm.gasCliente = {
             limit: 10,
             page: 1,
@@ -80,6 +82,23 @@
                 }, function error(response) {
                     console.error('error', response);
                 });
+        }
+
+        function searchDialog() {
+            var locals = { filter: vm.filter };
+
+            $mdDialog.show({
+                locals: locals,
+                preserveScope: true,
+                controller: 'GasClienteSearchDialogCtrl',
+                controllerAs: 'vm',
+                templateUrl: 'partial/gas-cliente/gas-cliente-search-dialog.html',
+                parent: angular.element(document.body),
+                //targetEvent: event,
+                clickOutsideToClose: false
+            }).then(function(data) {
+                getData({ reset: true });
+            });
         }
 
         function create() {
