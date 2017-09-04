@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -15,7 +15,7 @@
         return {
             url: '/gas-cliente/:id',
             templateUrl: 'partial/gas-cliente/gas-cliente-form.html',
-            controller: 'gasClienteFormCtrl',
+            controller: 'GasClienteFormCtrl',
             controllerAs: 'vm',
             parent: 'home',
             params: {
@@ -39,7 +39,7 @@
         }
 
         function success(response) {
-            console.info(response);
+            //console.info(response);
             if (response.query.length === 0) {
                 $state.go('404');
             } else {

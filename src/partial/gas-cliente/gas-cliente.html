@@ -11,10 +11,11 @@
                 </md-input-container>
 
                 <md-input-container class="md-block" flex="20" flex-xs="50">
-                    <label>CPF</label>
-                    <input name="CLI_CPFCNPJ" ng-model="vm.filter.CLI_CPFCNPJ" ui-br-cpf-mask>
+                    <label>CPF/CNPJ</label>
+                    <input name="CLI_CPFCNPJ" ng-model="vm.filter.CLI_CPFCNPJ" ui-br-cpfcnpj-mask>
                     <div ng-messages="formSearch.CLI_CPFCNPJ.$error" multiple md-auto-hide="false">
                         <div ng-message="cpf">CPF inválido.</div>
+                        <div ng-message="cnpj">CNPJ inválido.</div>
                     </div>
                 </md-input-container>
 
@@ -78,7 +79,7 @@
                         <!-- fix-head  -->
                         <tr md-row hide-xs hide-sm>
                             <th md-column><span></span></th>
-                            <th md-column><span>Código</span></th>
+                            <!-- <th md-column><span>Código</span></th> -->
                             <th md-column md-order-by=""><span>Nome</span></th>
                             <th md-column md-order-by=""><span>Telefone</span></th>
                             <th md-column md-order-by=""><span>CPF</span></th>
@@ -105,10 +106,10 @@
                                     <md-icon>search</md-icon>
                                 </md-button>
                             </td>
-                            <td md-cell>{{item.CLI_ID}}</td>
+                            <!-- <td md-cell>{{item.CLI_ID}}</td> -->
                             <td md-cell>{{item.CLI_NOME}}</td>
-                            <td md-cell>{{item.CLI_TEL1 | brPhoneNumber}}</td>
-                            <td md-cell nowrap>{{item.CLI_CPFCNPJ | brCpf}}</td>
+                            <td md-cell nowrap>{{item.CLI_TEL1 | brPhoneNumber}}</td>
+                            <td md-cell nowrap>{{item.CLI_CPFCNPJ | brCpfCnpj}}</td>
                             <td md-cell>{{item.GAS_ULTIMA_TROCA | date:'dd/MM/yyyy'}}</td>
                             <td md-cell>{{item.GAS_PROXIMA_TROCA | date:'dd/MM/yyyy'}}</td>
                             <td md-cell>{{item.GAS_MEDIA}}</td>

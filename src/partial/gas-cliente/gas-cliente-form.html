@@ -2,7 +2,7 @@
     <md-toolbar class="md-hue-2">
         <div class="md-toolbar-tools">
             <h2>
-                <span>Formulário</span>
+                <span>Formulário de cliente</span>
             </h2>
         </div>
     </md-toolbar>
@@ -20,43 +20,92 @@
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="">
-                        <label>CPF</label>
-                        <input name="cpf" ng-model="vm.gasCliente.cpf" ui-br-cpf-mask required>
+                        <label>CPF/CNPJ</label>
+                        <input name="cpf" ng-model="vm.gasCliente.cpf" ui-br-cpfcnpj-mask>
                         <div ng-messages="form.cpf.$error" multiple md-auto-hide="false">
                             <div ng-message="required">Campo obrigatório.</div>
                             <div ng-message="cpf">CPF inválido.</div>
+                            <div ng-message="cnpj">CNPJ inválido.</div>
                         </div>
                     </md-input-container>
                 </div>
 
                 <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm="">
-                        <label>Endereço</label>
-                        <input name="endereco" ng-model="vm.gasCliente.endereco">
-                        <div ng-messages="form.endereco.$error">
+                    <md-input-container class="md-block" flex-gt-sm="30">
+                        <label>CEP</label>
+                        <input name="cli_cep" ng-model="vm.gasCliente.CLI_CEP" required ui-br-cep-mask cep-search cep-search-event="vm.cepSearch(event)">
+                        <div ng-messages="form.cli_cep.$error">
                             <div ng-message="required">Campo obrigatório.</div>
                         </div>
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm="">
-                        <label>Estado</label>
-                        <md-select ng-model="vm.gasCliente.uf">
-                            <md-option><em></em></md-option>
-                            <md-option ng-repeat="option in vm.uf" ng-value="option.id">
-                                {{option.name}}
-                            </md-option>
-                        </md-select>
+                        <label>Endereço</label>
+                        <input name="cli_endereco" ng-model="vm.gasCliente.CLI_ENDERECO" required>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="15" flex>
+                        <label>Nº</label>
+                        <input type="number" name="cli_numero" ng-model="vm.gasCliente.CLI_NUMERO" required>
                     </md-input-container>
                 </div>
 
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm="">
-                        <label>Cartão</label>
-                        <input name="cartao" ng-model="vm.gasCliente.cartao" ui-mask="9999 9999 9999 9999">
+                        <label>Complemento</label>
+                        <input type="text" name="cli_complemento" ng-model="vm.gasCliente.cli_complemento">
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Bairro</label>
+                        <input name="cli_bairro" ng-model="vm.gasCliente.CLI_BAIRRO" required>
+                        <div ng-messages="form.cli_bairro.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
                     </md-input-container>
 
-                    <md-input-container>
-                        <label>Data</label>
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Cidade</label>
+                        <input name="cli_cidade" ng-model="vm.gasCliente.CLI_CIDADE" required>
+                        <div ng-messages="form.cli_cidade.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="15">
+                        <label>Estado</label>
+                        <input name="cli_uf" ng-model="vm.gasCliente.CLI_UF" required>
+                        <div ng-messages="form.cli_uf.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="50">
+                        <label>Média (Gás/Mês)</label>
+                        <input type="text" ng-model="vm.gasCliente.GAS_MEDIA" ng-change="vm.callProximaTroca()" ng-currency currency-symbol="">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="50">
+                        <label>Última troca</label>
+                        <md-datepicker ng-model="vm.gasCliente.GAS_ULTIMA_TROCA" ng-change="vm.callProximaTroca()"></md-datepicker>
+                        <div class="hint-datepicker">DD/MM/YYYY</div>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="50">
+                        <label>Próxima troca (Estimativa)</label>
+                        <md-datepicker ng-model="vm.gasCliente.GAS_PROXIMA_TROCA" disabled class="GAS_PROXIMA_TROCA"></md-datepicker>
+                        <div class="hint-datepicker">DD/MM/YYYY</div>
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block" flex-gt-sm="50">
+                        <label>Cliente desde</label>
                         <md-datepicker ng-model="vm.gasCliente.data"></md-datepicker>
                         <div class="hint-datepicker">DD/MM/YYYY</div>
                     </md-input-container>

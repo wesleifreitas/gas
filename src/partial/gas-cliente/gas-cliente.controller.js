@@ -68,6 +68,7 @@
                     //console.info('success', response);
 
                     for (var i = 0; i <= response.query.length - 1; i++) {
+                        response.query[i].CLI_CPFCNPJ = String(response.query[i].CLI_CPFCNPJ);
                         // ajustar dates
                         if (response.query[i].GAS_ULTIMA_TROCA !== '') {
                             response.query[i].GAS_ULTIMA_TROCA = new Date(response.query[i].GAS_ULTIMA_TROCA);
@@ -102,11 +103,11 @@
         }
 
         function create() {
-            $state.go('gasCliente-form');
+            $state.go('gas-cliente-form');
         }
 
         function update(id) {
-            $state.go('gasCliente-form', { id: id });
+            $state.go('gas-cliente-form', { id: id });
         }
 
         function remove() {
