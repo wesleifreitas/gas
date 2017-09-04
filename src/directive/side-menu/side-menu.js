@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular.module('myApp').directive('sideMenu', sideMenu);
@@ -19,7 +19,7 @@
         return directive;
 
         function link(scope, element, attrs, ngModel) {
-            var watchsideMenuHtml = scope.$watch('sideMenuHtml', function(newValue, oldValue) {
+            var watchsideMenuHtml = scope.$watch('sideMenuHtml', function (newValue, oldValue) {
                 if (newValue !== oldValue) {
                     element.html(scope.sideMenuHtml);
                     $compile(element.contents())(scope);
@@ -33,7 +33,7 @@
 
     function controller(config, $scope, $http, $rootScope, $sce) {
 
-        $scope.getsideMenu = function() {
+        $scope.getsideMenu = function () {
             var params = {};
             params.sideMenu = true;
             params.user = $rootScope.globals.currentUser.userid;
@@ -43,15 +43,14 @@
                 url: config.REST_URL + '/navBar',
                 params: params
             }).then(function success(response) {
-                console.info(response);
-                console.info(response.data.sideMenu);
+                //console.info(response);
                 $scope.sideMenuHtml = response.data.sideMenu;
             }, function error(response) {
                 console.error(response);
             });
         };
 
-        $scope.showView = function(state) {
+        $scope.showView = function (state) {
             $scope.itemClick({
                 event: {
                     state: state
@@ -59,7 +58,7 @@
             });
         };
 
-        $scope.isMobile = function() {
+        $scope.isMobile = function () {
             var userAgent = navigator.userAgent.toLowerCase();
             if (userAgent.search(/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i) != -1) { // jshint ignore:line
                 return true;
