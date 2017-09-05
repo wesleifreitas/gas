@@ -175,6 +175,65 @@
 
 		<cftry>
 			<!--- create --->
+			<cftransaction>
+				<cfquery datasource="#application.datasource#" result="rCliente">
+					INSERT INTO 
+						dbo.cliente
+					(
+						cli_ativo
+						,cli_nome
+						,cli_cpfCnpj
+						,cli_tel1
+						,cli_email
+						,cli_endereco
+						,cli_numero
+						,cli_complemento
+						,cli_bairro
+						,cli_cidade
+						,cli_uf
+						,cli_cep
+						,cli_data
+						,grupo_id
+					) 
+					VALUES (
+						1
+						,<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#body.CLI_NOME#">
+						,<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#body.CLI_CPFCNPJ#">
+						,<cfqueryparam cfsqltype="CF_SQL_NUMERIC" value="#body.CLI_TEL1#">
+						,<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#body.CLI_EMAIL#">
+						,<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#body.CLI_ENDERECO#">
+						,<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#body.CLI_NUMERO#">
+						,<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#body.CLI_COMPLEMENTO#">
+						,<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#body.CLI_BAIRRO#">
+						,<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#body.CLI_CIDADE#">
+						,<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#body.CLI_UF#">
+						,<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#body.CLI_CEP#">
+						,<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#body.CLI_DATA#">
+						,<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#session.grupoId#">
+					);
+				</cfquery>
+
+				<cfquery datasource="#application.datasource#">
+					INSERT INTO 
+						dbo.gas_status
+					(
+						cli_id
+						,gas_status
+						,gas_ultima_troca
+						,gas_proxima_troca
+						,gas_media
+					) 
+					VALUES (
+						<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#rCliente.IDENTITYCOL#">
+						,<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="4">
+						,<cfqueryparam cfsqltype="CF_SQL_DATE" value="#ISOToDateTime(body.GAS_ULTIMA_TROCA)#">
+						,<cfqueryparam cfsqltype="CF_SQL_DATE" value="#ISOToDateTime(body.GAS_PROXIMA_TROCA)#">
+						,<cfqueryparam cfsqltype="CF_SQL_FLOAT" value="#body.GAS_MEDIA#">
+					);
+				</cfquery>
+
+			</cftransaction>
+
 			<cfset response["success"] = true>
 			<cfset response["message"] = 'Ação realizada com sucesso!'>
 

@@ -34,7 +34,15 @@
             } else {
                 vm.action = 'create';
                 //default
+                vm.gasCliente.CLI_CPFCNPJ = '';
+                vm.gasCliente.CLI_TEL1 = '';
+                vm.gasCliente.CLI_EMAIL = '';
+                vm.gasCliente.CLI_CEP = '';
+                vm.gasCliente.CLI_COMPLEMENTO = '';
+                vm.gasCliente.GAS_MEDIA = 1;
                 vm.gasCliente.GAS_ULTIMA_TROCA = new Date();
+                vm.gasCliente.CLI_DATA = new Date();
+                callProximaTroca();
             }
         }
 
