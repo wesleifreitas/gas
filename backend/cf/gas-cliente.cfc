@@ -16,10 +16,7 @@
                 SELECT
                     COUNT(*) AS COUNT
                 FROM
-                    dbo.cliente AS cliente
-
-				LEFT OUTER JOIN dbo.gas_status as gas_status
-				ON gas_status.cli_id = cliente.cli_id
+                    dbo.vw_cliente
 
                 WHERE
                     grupo_id = #grupoId#
@@ -33,13 +30,13 @@
                     AND	cli_cep = <cfqueryparam value = "#url.CLI_CEP#" CFSQLType = "CF_SQL_VARCHAR">
                 </cfif>
 				<cfif IsDefined("url.GAS_STATUS") AND IsNumeric(url.GAS_STATUS)>
-                    AND	gas_status = <cfqueryparam value = "#url.GAS_STATUS#" CFSQLType = "CF_SQL_INTEGER">
+                    AND	gas_status_atual = <cfqueryparam value = "#url.GAS_STATUS#" CFSQLType = "CF_SQL_INTEGER">
                 </cfif>
             </cfquery>
 
             <cfquery datasource="#application.datasource#" name="query">
                 SELECT
-					cliente.cli_id
+					cli_id
 					,cli_ativo
 					,cli_arquivo
 					,cli_nome
@@ -67,11 +64,9 @@
 					,gas_ultima_troca
 					,gas_proxima_troca
 					,gas_media
+					,gas_status_atual
                 FROM
-                    dbo.cliente
-
-				LEFT OUTER JOIN dbo.gas_status as gas_status
-				ON gas_status.cli_id = cliente.cli_id
+                    dbo.vw_cliente
 				
                 WHERE
                      grupo_id = #grupoId#
@@ -85,7 +80,7 @@
                     AND	cli_cep = <cfqueryparam value = "#url.CLI_CEP#" CFSQLType = "CF_SQL_VARCHAR">
                 </cfif>
 				<cfif IsDefined("url.GAS_STATUS") AND IsNumeric(url.GAS_STATUS)>
-                    AND	gas_status = <cfqueryparam value = "#url.GAS_STATUS#" CFSQLType = "CF_SQL_INTEGER">
+                    AND	gas_status_atual = <cfqueryparam value = "#url.GAS_STATUS#" CFSQLType = "CF_SQL_INTEGER">
                 </cfif>
 
                 ORDER BY

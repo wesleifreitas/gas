@@ -114,8 +114,8 @@
                             <td md-cell>{{item.GAS_PROXIMA_TROCA | date:'dd/MM/yyyy'}}</td>
                             <td md-cell>{{item.GAS_MEDIA}}</td>
                             <td md-cell class="center">
-                                <md-icon md-font-icon="{{(item.GAS_STATUS | gasStatus).class}}" class="fa"></md-icon>
-                                <span>{{(item.GAS_STATUS | gasStatus).name}}</span>
+                                <md-icon md-font-icon="{{(item.GAS_STATUS_ATUAL | gasStatus).class}}" class="fa"></md-icon>
+                                <span>{{(item.GAS_STATUS_ATUAL | gasStatus).name}}</span>
                             </td>
                         </tr>
                     </tbody>
@@ -176,7 +176,8 @@
         </md-table-container>
 
         <div>
-            <md-table-pagination md-label="{page: 'Página:', rowsPerPage: 'Qtd. por página:', of: 'de'}" md-limit="vm.gasCliente.limit" md-page="vm.gasCliente.page" md-total="{{vm.gasCliente.total}}" md-page-select md-on-paginate="vm.gasCliente.pagination"></md-table-pagination>
+            <md-table-pagination md-label="{page: 'Página:', rowsPerPage: 'Qtd. por página:', of: 'de'}" md-limit="vm.gasCliente.limit"
+                md-page="vm.gasCliente.page" md-total="{{vm.gasCliente.total}}" md-page-select md-on-paginate="vm.gasCliente.pagination"></md-table-pagination>
         </div>
     </div>
 </div>
